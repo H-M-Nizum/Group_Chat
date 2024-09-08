@@ -1,23 +1,28 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-    <h1>Group Chat</h1>
-    <h3>Group Name : {{groupName}}</h3>
-    {{groupName|json_script:"groupName"}}
 
-    <div>
-        <textarea name="textarea" id="textarea" cols="50" rows="20"></textarea>
-    </div>
-    
-    <div>
-        <input type="text" id="chat_box">
-        <button id="send">Send</button>
-    </div>
+<body>
+    <section style="text-align: center;">
+        <h1>Group Chat</h1>
+        <h3><img src="{% static "img/group.png" %}" style="height: 30px" alt="opps"> {{groupName}}</h3>
+        {{groupName|json_script:"groupName"}}
+
+        <div>
+            <textarea name="textarea" id="textarea" cols="50" rows="20"></textarea>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <input style="width: 300px; height: 30px" type="text" id="chat_box">
+            <button style="height: 35px; width: 78px; background-color: rgb(98, 98, 245); color: white; border: none;" id="send">Send</button>
+        </div>
+    </section>
 
 
 
@@ -31,26 +36,27 @@
         let ws = new WebSocket(
             'ws://' + window.location.host + '/ws/as/' + groupName + '/'
         )
-        ws.onopen = function(event){
+        ws.onopen = function (event) {
             console.log("Connect websocket..", event)
         }
 
-        ws.onmessage = function(event){
+        ws.onmessage = function (event) {
             console.log("Received message..", event['data'])
-            document.getElementById('textarea').value += (event['data'] +  '\n')
+            document.getElementById('textarea').value += (event['data'] + '\n')
         }
 
-        ws.onerror = function(event){
+        ws.onerror = function (event) {
             console.log("Catch error..", event)
         }
 
-        ws.onclose = function(event){
+        ws.onclose = function (event) {
             console.log("Close Websocket..", event)
         }
 
-        document.getElementById('send').addEventListener('click', function(){
+        document.getElementById('send').addEventListener('click', function () {
             ws.send(document.getElementById('chat_box').value)
         })
     </script>
 </body>
+
 </html>
