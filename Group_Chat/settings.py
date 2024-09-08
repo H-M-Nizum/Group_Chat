@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -68,7 +69,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'Group_Chat.wsgi.application'
+ASGI_APPLICATION = 'Group_Chat.asgi.application'
+# WSGI_APPLICATION = 'Group_Chat.wsgi.application'
 
 
 # Database
