@@ -7,5 +7,26 @@
 </head>
 <body>
     <h1>Group Chat</h1>
+
+
+
+    <script>
+        let ws = new WebSocket('ws://127.0.0.1:8000/ws/as/')
+        ws.onopen = function(event){
+            console.log("Connect websocket..", event)
+        }
+
+        ws.onmessage = function(event){
+            console.log("Received message..", event)
+        }
+
+        ws.onerror = function(event){
+            console.log("Catch error..", event)
+        }
+
+        ws.onclose = function(event){
+            console.log("Close Websocket..", event)
+        }
+    </script>
 </body>
 </html>
