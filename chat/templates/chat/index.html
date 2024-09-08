@@ -8,6 +8,11 @@
 <body>
     <h1>Group Chat</h1>
 
+    <div>
+        <input type="text" id="chat_box">
+        <button id="send">Send</button>
+    </div>
+
 
 
     <script>
@@ -17,7 +22,7 @@
         }
 
         ws.onmessage = function(event){
-            console.log("Received message..", event)
+            console.log("Received message..", event['data'])
         }
 
         ws.onerror = function(event){
@@ -27,6 +32,10 @@
         ws.onclose = function(event){
             console.log("Close Websocket..", event)
         }
+
+        document.getElementById('send').addEventListener('click', function(){
+            ws.send(document.getElementById('chat_box').value)
+        })
     </script>
 </body>
 </html>
