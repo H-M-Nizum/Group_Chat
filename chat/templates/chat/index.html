@@ -7,7 +7,13 @@
 </head>
 <body>
     <h1>Group Chat</h1>
+    <h3>Group Name : {{groupName}}</h3>
+    {{groupName|json_script:"groupName"}}
 
+    <div>
+        <textarea name="textarea" id="textarea" cols="50" rows="20"></textarea>
+    </div>
+    
     <div>
         <input type="text" id="chat_box">
         <button id="send">Send</button>
@@ -15,14 +21,23 @@
 
 
 
+
+
     <script>
-        let ws = new WebSocket('ws://127.0.0.1:8000/ws/as/')
+        // let ws = new WebSocket('ws://127.0.0.1:8000/ws/as/')
+        // dynamic groupname
+        // Get the dynamic group name from Django template using json_script
+        const groupName = JSON.parse(document.getElementById('groupName').textContent);
+        let ws = new WebSocket(
+            'ws://' + window.location.host + '/ws/as/' + groupName + '/'
+        )
         ws.onopen = function(event){
             console.log("Connect websocket..", event)
         }
 
         ws.onmessage = function(event){
             console.log("Received message..", event['data'])
+            document.getElementById('textarea').value += (event['data'] +  '\n')
         }
 
         ws.onerror = function(event){
