@@ -26,6 +26,7 @@ SECRET_KEY = 'django-insecure-9)eg*$oqxrgn5(as^&2$#^yz5$&$13p*w6pruli^jqg&kd4*=#
 DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
+CSRF_TRUSTED_ORIGINS = ['https://group-chat-ch8o.onrender.com','https://*.127.0.0.1']
 
 
 # Application definition
